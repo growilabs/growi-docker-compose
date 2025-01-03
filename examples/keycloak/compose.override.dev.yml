@@ -1,0 +1,37 @@
+services:
+  app:
+    links:
+      # Return IP address of keycloak's container when resolving "localho.st" from GROWI.
+      # This allows both the browser and the GROWI container to access keycloak by accessing http://localho.st:8080.
+      - keycloak:localho.st
+    environment:
+      APP_SITE_URL: http://localho.st:3000
+      # Settings for SAML
+      SAML_ENTRY_POINT: http://localho.st:8080/realms/growi-dev/protocol/saml
+      SAML_ISSUER: growi-saml-client
+      SAML_CERT: |-
+        -----BEGIN CERTIFICATE-----
+        MIICoTCCAYkCBgGUJuFYzDANBgkqhkiG9w0BAQsFADAUMRIwEAYDVQQDDAlncm93aS1kZXYwHhcNMjUwMTAyMTE1NjMwWhcNMzUwMTAyMTE1ODEwWjAUMRIwEAYDVQQDDAlncm93aS1kZXYwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCnWfy7dK0HaN+LU4FLUTqmouTv7bY5iKtmlSlFW99iNkPKXiGlL7xyFh7PaTrdpZrV/s+qRVLt4uqzy1Td/3zYr1zzOvK7uI7A6Jwl5w29+79g5YvEpoqNc8RSvkfIfChxozvJFKpeznaSTB++Jx7jSXUQJZHlsLHggji4P4MEaxhGx/FpqJrJyyq8hLh1Tci5HJdBnUc/g8F/m3zb8BYfx/SwE4paRfLXa6pi+HLG/bK2POWIRVG4eo7Kck06tOlAZE9tfOD55BeYYp6KPuMNAIr70iloIXg5O2Wv7ChhLowf8vUOxrz6RRfbNsKx4irmhb7M7wdix6ECbrWCWSOnAgMBAAEwDQYJKoZIhvcNAQELBQADggEBABu5/ywmjjJDGEp5QB8e570gFzArmIpAleQ4BB6cgdSYpL41i4hxqUx0cVfby49YsEq1Oz1iPbYEKUqT5Jt1sTavgM1sBjlko/lb1drQ2B8sBg0S4thislMpXAzOVWSEjep4jVSVevdA7uwWLCi/fbi1ESMCbhSlW19kvHeBObZSeIYGJksn7OcHjtUu2kQw0+7mGf+Sp4HR0rdpx/a0Vl3QinWEwq28ZmBuyr6za3wX64q+bMvUrj9E4wj401jVB3qPWRzN8W9DwXWOZUBUkEZZRbvv7wfM1wB70S4QYbZpG2Rkta64aflQctfxW6ULzimmKOVJ4btQKwPzP6wF/QY=
+        -----END CERTIFICATE-----
+      SAML_ATTR_MAPPING_ID: id
+      SAML_ATTR_MAPPING_USERNAME: username
+      SAML_ATTR_MAPPING_MAIL: email
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    ports:
+      - 8080:8080
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localho.st
+    command:
+      - start-dev
+      - --import-realm
+    restart: unless-stopped
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+      - ./examples/keycloak/realms:/opt/keycloak/data/import
+
+volumes:
+  keycloak_data:
