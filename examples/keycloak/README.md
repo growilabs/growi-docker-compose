@@ -24,21 +24,21 @@ Then, for the first time only, do following:
 1. Move to http://localho.st:3000/admin/security
 1. Enable SAML
     1. Show SAML tab and set these variables:
-        * SAML
+        - SAML
             - [x] Enable SAML
-        * Attribute Mapping Options
+        - Attribute Mapping Options
             - [x] Automatically bind external accounts newly logged in to local accounts when `username` match (*1)
     1. Click Update button
 1. Enable OIDC
     1. Show OIDC tab and set these variables:
-        * OpenID Connect
+        - OpenID Connect
             - [x] Enable OIDC
-        * Configuration
+        - Configuration
             - Provider Name: `keycloak`
             - Issuer Host: `http://localho.st:8080/realms/growi-dev`
             - Client ID: `growi-oidc-client`
             - Client Secret: `8yl2dujVmjr7maftgadNth18Eg4oiTLj`
-        * Attribute Mapping (Optional)
+        - Attribute Mapping (Optional)
             - Identifier: `sub`
             - username: `preferred_username`
             - Name: `name`
