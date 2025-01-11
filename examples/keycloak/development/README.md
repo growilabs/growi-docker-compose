@@ -22,14 +22,14 @@ Then, for the first time only, do following:
 
 1. Access to http://localho.st:3000 and install GROWI
 1. Move to http://localho.st:3000/admin/security
-1. Enable SAML
+1. Enable SAML if you want to use
     1. Show SAML tab and set these variables:
         - SAML
             - [x] Enable SAML
         - Attribute Mapping Options
             - [x] Automatically bind external accounts newly logged in to local accounts when `username` match (*1)
     1. Click Update button
-1. Enable OIDC
+1. Enable OIDC if you want to use
     1. Show OIDC tab and set these variables:
         - OpenID Connect
             - [x] Enable OIDC
