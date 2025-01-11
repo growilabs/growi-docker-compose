@@ -9,8 +9,8 @@ This is an example of Docker Compose to run GROWI with Keycloak as the OIDC and 
 ```bash
 git clone https://github.com/weseek/growi-docker-compose.git growi
 cd growi
-cp examples/keycloak/compose.override.prod.yml compose.override.yml
-cp examples/keycloak/.prod.env .env
+cp examples/keycloak/production/compose.override.yml ./
+cp examples/keycloak/production/.env ./
 ```
 
 ### Start
