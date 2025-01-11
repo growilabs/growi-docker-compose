@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     volumes:
       - keycloak_data:/opt/keycloak/data
-      - ./examples/keycloak/realms:/opt/keycloak/data/import
+      - ./examples/keycloak/development/realms:/opt/keycloak/data/import
 
 volumes:
   keycloak_data:
