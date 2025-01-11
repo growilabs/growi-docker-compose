@@ -30,32 +30,44 @@ Then, for the first time only, do following:
 
 1. Access to https://kc.example.com/ and login as `temp-admin` user
 1. Create a realm with name `growi`
-1. Create a client with these variables:
-    - Client type: SAML
-    - Client ID: `growi-saml`
-    - Root URL: `https://example.com`
-    - Home URL: `https://example.com`
-    - Valid redirect URLs: `https://example.com/passport/saml/callback`
-1. Create mappers
-    1. Open client `growi`
-    1. Show `Keys` tab and turn off "Signing keys config"
-    1. Show `Client scopes` tab and open `growi-dedicated` scope
-    1. Create these mappers from `Configure a new mapper` or `Add mapper`
-        - Create mapper like these for `id`, `username`, `email`, `firstName`, `lastName`
-            - Mapper type: `User Property`
-            - Name: `firstName`
-            - Friendly Name: `firstName`
-            - SAML Attribute Name: `firstName`
+1. Set SAML if you want to use SAML:
+    1. Create a client with these variables:
+        - Client type: `SAML`
+        - Client ID: `growi-saml`
+        - Root URL: `https://example.com`
+        - Home URL: `https://example.com`
+        - Valid redirect URLs: `https://example.com/passport/saml/callback`
+    1. Turn off "Signing keys config"
+        1. Open client `growi`
+        1. Show `Keys` tab and turn off "Signing keys config"
+    1. Create mappers
+        1. Open client `growi`
+        1. Show `Client scopes` tab and open `growi-saml-dedicated` scope
+        1. Create these mappers from `Configure a new mapper` or `Add mapper`
+            - Create mapper like these for `id`, `username`, `email`, `firstName`, `lastName`
+                - Mapper type: `User Property`
+                - Name: `id`
+                - Property: `id`
+                - Friendly Name: `id`
+                - SAML Attribute Name: `id`
+1. Set OIDC if you want to use OIDC:
+    1. Create a client with these variables if you want to use OIDC:
+        - Client type: `OIDC`
+        - Client authntication: `On`
+        - Authentication flow: `Standard flow`
+        - Root URL: `https://example.com`
+        - Home URL: `https://example.com`
+        - Valid redirect URLs: `https://example.com/passport/saml/callback`
 1. Create user from `Users` or set identity providers as you like
 
 1. Access to https://example.com/ and install GROWI
 1. Move to https://example.com/admin/security
-1. Enable SAML
+1. Enable SAML if you want to use
     1. Show SAML tab and set these variables:
         - SAML
             - [x] Enable SAML
         - Entry point: `https://kc.example.com/realms/growi/protocol/saml`
-        - Issuer: `growi`
+        - Issuer: `growi-saml`
         - Certificate: Copy certificate from Keycloak (realm `growi` -> Realm settings -> `Keys` -> `Certificate` for algorithm `RS256`) and sandwich "-----BEGIN CERTIFICATE-----" and "-----END CERTIFICATE-----"
         - Attribute Mapping
             - ID: `id`
@@ -63,7 +75,7 @@ Then, for the first time only, do following:
             - Mail address: `email`
             - [x] Automatically bind external accounts newly logged in to local accounts when `username` match (*1)
     1. Click Update button
-1. Enable OIDC
+1. Enable OIDC if you want to use
     1. Show OIDC tab and set these variables:
         * OpenID Connect
             - [x] Enable OIDC
@@ -71,7 +83,7 @@ Then, for the first time only, do following:
             - Provider Name: `keycloak`
             - Issuer Host: `https://kc.example.com/realms/growi`
             - Client ID: `growi-oidc-client`
-            - Client Secret: `8yl2dujVmjr7maftgadNth18Eg4oiTLj`
+            - Client Secret: Copy Client Secret from Keycloak (realm `growi` -> `Clients` -> `growi-oidc-client` -> `Credentials` -> Client Secret)
         * Attribute Mapping (Optional)
             - Identifier: `sub`
             - username: `preferred_username`
