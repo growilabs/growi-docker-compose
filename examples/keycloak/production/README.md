@@ -52,7 +52,8 @@ Then, for the first time only, do following:
                 - SAML Attribute Name: `id`
 1. Set OIDC if you want to use OIDC:
     1. Create a client with these variables if you want to use OIDC:
-        - Client type: `OIDC`
+        - Client type: `OpenID Connect`
+        - Client ID: `growi-oidc`
         - Client authntication: `On`
         - Authentication flow: `Standard flow`
         - Root URL: `https://example.com`
@@ -82,7 +83,7 @@ Then, for the first time only, do following:
         * Configuration
             - Provider Name: `keycloak`
             - Issuer Host: `https://kc.example.com/realms/growi`
-            - Client ID: `growi-oidc-client`
+            - Client ID: `growi-oidc`
             - Client Secret: Copy Client Secret from Keycloak (realm `growi` -> `Clients` -> `growi-oidc-client` -> `Credentials` -> Client Secret)
         * Attribute Mapping (Optional)
             - Identifier: `sub`
