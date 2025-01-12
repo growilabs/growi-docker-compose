@@ -48,6 +48,7 @@ services:
   https-portal:
     image: steveltn/https-portal:1
     ports:
+      - 80:80
       - 443:443
     environment:
       DOMAINS: '${GROWI_DOMAIN} -> http://app:3000, ${KEYCLOAK_DOMAIN} -> http://keycloak:8080'
