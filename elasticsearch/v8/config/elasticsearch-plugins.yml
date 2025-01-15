@@ -1,0 +1,3 @@
+plugins:
+  - id: analysis-kuromoji
+  - id: analysis-icu
