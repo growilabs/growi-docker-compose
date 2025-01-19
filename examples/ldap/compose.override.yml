@@ -12,12 +12,15 @@ services:
   ldap:
     image: bitnami/openldap:2.6.9
     environment:
+      # for server
       - LDAP_PORT_NUMBER=389
       - LDAP_LDAPS_PORT_NUMBER=636
       - LDAP_ENABLE_TLS=yes
       - LDAP_TLS_CERT_FILE=/opt/bitnami/openldap/certs/ldaps_cert.crt
       - LDAP_TLS_KEY_FILE=/opt/bitnami/openldap/certs/ldaps_key.pem
       - LDAP_TLS_CA_FILE=/opt/bitnami/openldap/certs/cacert.crt
+      # for client
+      - LDAPTLS_CACERT=/opt/bitnami/openldap/certs/cacert.crt
       # admin user (DN: cn=admin,dc=example,dc=org)
       - LDAP_ADMIN_USERNAME=admin
       - LDAP_ADMIN_PASSWORD=adminpassword
