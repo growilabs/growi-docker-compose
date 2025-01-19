@@ -1,0 +1,36 @@
+services:
+  app:
+    environment:
+      # Node.js uses an hardcoded list of trusted CAs in its Node.js runtime.
+      # see. https://github.com/nodejs/node/issues/4175
+      # To use a custom CA certificate, you can set the NODE_EXTRA_CA_CERTS environment variable.
+      # ref. https://github.com/weseek/growi/discussions/7708
+      NODE_EXTRA_CA_CERTS: /usr/local/share/ca-certificates/cacert.crt
+    volumes:
+      - ./examples/ldap/certs/cacert.crt:/usr/local/share/ca-certificates/cacert.crt:ro
+
+  ldap:
+    image: bitnami/openldap:2.6.9
+    environment:
+      - LDAP_PORT_NUMBER=389
+      - LDAP_LDAPS_PORT_NUMBER=636
+      - LDAP_ENABLE_TLS=yes
+      - LDAP_TLS_CERT_FILE=/opt/bitnami/openldap/certs/ldaps_cert.crt
+      - LDAP_TLS_KEY_FILE=/opt/bitnami/openldap/certs/ldaps_key.pem
+      - LDAP_TLS_CA_FILE=/opt/bitnami/openldap/certs/cacert.crt
+      # admin user (DN: cn=admin,dc=example,dc=org)
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=adminpassword
+      # users (DN: ou=users,dc=example,dc=org)
+      - LDAP_USERS=user1
+      - LDAP_PASSWORDS=password
+    volumes:
+      - ldap_data:/bitnami/openldap
+      - ./examples/ldap/certs:/opt/bitnami/openldap/certs:ro
+    networks:
+      default:
+        aliases:
+          - ${LDAPS_DOMAIN}
+
+volumes:
+  ldap_data:
