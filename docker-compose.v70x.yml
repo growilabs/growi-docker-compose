@@ -46,9 +46,7 @@ services:
       retries: 6
 
   elasticsearch:
-    build:
-      context: ./elasticsearch/v8
-      dockerfile: ./Dockerfile
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"  # increase amount if you have enough memory
@@ -61,6 +59,7 @@ services:
     volumes:
       - es_data:/usr/share/elasticsearch/data
       - ./elasticsearch/v8/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/v8/config/elasticsearch-plugins.yml:/usr/share/elasticsearch/config/elasticsearch-plugins.yml
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9200"]
       interval: 10s
