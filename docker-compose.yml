@@ -15,6 +15,7 @@ services:
           condition: service_healthy
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi?replicaSet=rs0
+      - DEPLOYMENT_TYPE=growi-docker-compose
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi
       - BULK_EXPORT_PDF_CONVERTER_URI=http://pdf-converter:3010
       - PASSWORD_SEED=changeme

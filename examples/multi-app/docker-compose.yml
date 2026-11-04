@@ -15,6 +15,7 @@ services:
           condition: service_healthy
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi-1?replicaSet=rs0
+      - DEPLOYMENT_TYPE=growi-docker-compose
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi-1
       - PASSWORD_SEED=changeme
     restart: unless-stopped
@@ -35,6 +36,7 @@ services:
           condition: service_healthy
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi-2?replicaSet=rs0
+      - DEPLOYMENT_TYPE=growi-docker-compose
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi-2
       - PASSWORD_SEED=changeme
     restart: unless-stopped
@@ -55,6 +57,7 @@ services:
           condition: service_healthy
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi-3?replicaSet=rs0
+      - DEPLOYMENT_TYPE=growi-docker-compose
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi-3
       - PASSWORD_SEED=changeme
     restart: unless-stopped
